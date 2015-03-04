@@ -1,12 +1,13 @@
 #pragma once
 
+template <typename T>
 class Vec3
 {
 public:
 	//Instead of making these private, it's much cleaner to make these public. Saves 6 accessor functions.
-	double x;
-	double y;
-	double z;
+	T x;
+	T y;
+	T z;
 
 	Vec3()
 	{
@@ -15,22 +16,30 @@ public:
 		z = 0.0;
 	}
 
-	//A sneaky way to use a Vec3 as a Vec2.
-	Vec3(double X, double Y)
-	{
-		x = X;
-		y = Y;
-		z = 0.0;
-	}
-
-	Vec3(double X, double Y, double Z)
+	Vec3(T X, T Y, T Z)
 	{
 		x = X;
 		y = Y;
 		z = Z;
 	}
-	
-	Vec3& operator+= (Vec3& rhs)
+
+	Vec3<T> operator+(Vec3<T>& lhs, Vec3<T>&  rhs)
+	{
+		int newX = lhs.x + rhs.x;
+		int newY = lhs.y + rhs.y;
+		int newZ = lhs.z + rhs.z;
+		return Vec3<T>(newX, newY, newZ);
+	}
+
+	Vec3<T> operator-(Vec3<T>& lhs, Vec3<T>&  rhs)
+	{
+		int newX = lhs.x - rhs.x;
+		int newY = lhs.y - rhs.y;
+		int newZ = lhs.z - rhs.z;
+		return Vec3<T>(newX, newY, newZ);
+	}
+
+	Vec3<T>& operator+= (Vec3<T>& rhs)
 	{
 		//Addition of rhs to *this
 		x += rhs.x;
@@ -38,31 +47,23 @@ public:
 		return *this;
 	}
 
-	bool operator== (Vec3& rhs)
+	Vec3<T>& operator-= (Vec3<T>& rhs)
+	{
+		//Addition of rhs to *this
+		x -= rhs.x;
+		y -= rhs.y;
+		return *this;
+	}
+
+	bool operator== (Vec3<T>& rhs)
 	{
 		//If x, y and z are equivalent, return true.
 		return ((x == rhs.x) && (y == rhs.y) && (z == rhs.z));
 	}
 
-	bool operator!= (Vec3& rhs)
+	bool operator!= (Vec3<T>& rhs)
 	{
 		//If the values are NOT equivalent, return true.
 		return (!((*this) == rhs));
 	}
 };
-
-inline Vec3 operator+(Vec3& lhs, Vec3&  rhs)
-{
-	int newX = lhs.x + rhs.x;
-	int newY = lhs.y + rhs.y;
-	int newZ = lhs.z + rhs.z;
-	return Vec3(newX, newY, newZ);
-}
-
-inline Vec3 operator-(Vec3& lhs, Vec3&  rhs)
-{
-	int newX = lhs.x - rhs.x;
-	int newY = lhs.y - rhs.y;
-	int newZ = lhs.z - rhs.z;
-	return Vec3(newX, newY, newZ);
-}
