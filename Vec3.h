@@ -23,22 +23,6 @@ public:
 		z = Z;
 	}
 
-	Vec3<T> operator+(Vec3<T>& lhs, Vec3<T>&  rhs)
-	{
-		int newX = lhs.x + rhs.x;
-		int newY = lhs.y + rhs.y;
-		int newZ = lhs.z + rhs.z;
-		return Vec3<T>(newX, newY, newZ);
-	}
-
-	Vec3<T> operator-(Vec3<T>& lhs, Vec3<T>&  rhs)
-	{
-		int newX = lhs.x - rhs.x;
-		int newY = lhs.y - rhs.y;
-		int newZ = lhs.z - rhs.z;
-		return Vec3<T>(newX, newY, newZ);
-	}
-
 	Vec3<T>& operator+= (Vec3<T>& rhs)
 	{
 		//Addition of rhs to *this
@@ -67,3 +51,21 @@ public:
 		return (!((*this) == rhs));
 	}
 };
+
+template <typename T>
+inline Vec3<T> operator+(Vec3<T>& lhs, Vec3<T>&  rhs)
+{
+	int newX = lhs.x + rhs.x;
+	int newY = lhs.y + rhs.y;
+	int newZ = lhs.z + rhs.z;
+	return Vec3<T>(newX, newY, newZ);
+}
+
+template <typename T>
+inline Vec3<T> operator-(Vec3<T>& lhs, Vec3<T>&  rhs)
+{
+	int newX = lhs.x - rhs.x;
+	int newY = lhs.y - rhs.y;
+	int newZ = lhs.z - rhs.z;
+	return Vec3<T>(newX, newY, newZ);
+}
