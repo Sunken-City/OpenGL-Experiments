@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <assert.h>
 
+#include "Vec3.h"
 #include "glLog.h"
 
 int main()
