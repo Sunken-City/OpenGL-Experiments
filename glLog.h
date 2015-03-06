@@ -1,4 +1,6 @@
 #pragma once
+#include <GL/glew.h> // Include GLEW, which helps us map to drivers
+#include <GLFW/glfw3.h> // Include GLFW, the Windowing Tool Kit we're using.
 #include <time.h>
 #include <stdarg.h>
 #include <stdio.h>
@@ -14,4 +16,6 @@ public:
 	static bool gl_log_err(const char* message, ...);
 	//A wrapper for our error logging
 	static void glfw_error_callback(int error, const char* description);
+	//Print the shader info log
+	static void print_shader_info_log(GLuint shader_index);
 };

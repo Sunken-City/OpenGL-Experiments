@@ -70,4 +70,13 @@ void glLog::glfw_error_callback(int error, const char* description)
 	gl_log_err("GLFW ERROR: code %i msg: %s\n", error, description);
 }
 
+void glLog::print_shader_info_log(GLuint shader_index)
+{
+	int max_length = 2048;
+	int actual_length = 0;
+	char log[2048];
+	glGetShaderInfoLog(shader_index, max_length, &actual_length, log);
+	gl_log_err("Shader info log for GL index %u: \n%s\n", shader_index, log);
+}
+
 #pragma warning(pop)

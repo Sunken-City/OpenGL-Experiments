@@ -5,6 +5,8 @@
 
 #include "Vec3.h"
 #include "glLog.h"
+#include "Shader.h"
+#include "Program.h"
 
 int main()
 {
@@ -70,43 +72,17 @@ int main()
 	//0 means to define the layout for attrib #0, 3 means that we're using vec3
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
 
-	//Let's declare our shader files inline because Anton thinks its a good idea
-	const char* vertex_shader =
-		"#version 410\n"
-		"in vec3 vp;"
-		"void main () {"
-		"  gl_Position = vec4 (vp, 1.0);"
-		"}";
+	Shader vs = Shader("vertex_shader.vert", GL_VERTEX_SHADER);
+	Shader fs = Shader("fragment_shader.frag", GL_FRAGMENT_SHADER);
 
-	const char* fragment_shader =
-		"#version 410\n"
-		"out vec4 frag_color;"
-		"void main () {"
-		"  frag_color = vec4 (0.5, 0.0, 0.5, 1.0);"
-		"}";
-
-	//Now we need to load the shader files into a GL shader
-	GLuint vs = glCreateShader(GL_VERTEX_SHADER);
-	glShaderSource(vs, 1, &vertex_shader, NULL);
-	//We are literally compiling a shader in the middle of the program.
-	//I don't even.
-	glCompileShader(vs);
-	GLuint fs = glCreateShader(GL_FRAGMENT_SHADER);
-	glShaderSource(fs, 1, &fragment_shader, NULL);
-	glCompileShader(fs);
-
-	//Are we seriously making a program inside of a program?
-	GLuint shader_program = glCreateProgram();
-	glAttachShader(shader_program, fs);
-	glAttachShader(shader_program, vs);
-	glLinkProgram(shader_program);
+	Program shaderProgram = Program(vs, fs);
 
 	while (!glfwWindowShouldClose(window))
 	{
 		//Clear the drawing screen
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glClearColor(0.6f, 0.6f, 0.8f, 1.0f);
-		glUseProgram(shader_program);
+		shaderProgram.use();
 		glBindVertexArray(vao);
 		//Draw the three points from our VAO with our current shader
 		glDrawArrays(GL_TRIANGLES, 0, 3);
