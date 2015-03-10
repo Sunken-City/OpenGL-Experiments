@@ -16,6 +16,12 @@ public:
 	static bool gl_log_err(const char* message, ...);
 	//A wrapper for our error logging
 	static void glfw_error_callback(int error, const char* description);
-	//Print the shader info log
+	//Print the shader info log for compilation
 	static void print_shader_info_log(GLuint shader_index);
+	//Print the program info log for linking
+	static void print_program_info_log(GLuint program);
+	//Anton's function to print out all of the shader info
+	static void print_all(GLuint program);
+	//Anton's helper function to get strings out of GL Enum types
+	static const char* GL_type_to_string(GLenum type);
 };

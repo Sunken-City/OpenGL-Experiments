@@ -7,6 +7,5 @@ class Geometry
 public:
 	Geometry();
 	~Geometry();
-	virtual void init() = 0;
 	virtual void draw();
 };

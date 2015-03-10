@@ -5,11 +5,19 @@ Program::Program(Shader vertexShader, Shader fragmentShader)
 	vertex = vertexShader;
 	fragment = fragmentShader;
 
-	//Are we seriously making a program inside of a program?
 	shader_program = glCreateProgram();
 	glAttachShader(shader_program, fragment.getShader());
 	glAttachShader(shader_program, vertex.getShader());
 	glLinkProgram(shader_program);
+	//Check for linker errors
+	int params = -1;
+	glGetProgramiv(shader_program, GL_LINK_STATUS, &params);
+	if (GL_TRUE != params)
+	{
+		glLog::gl_log_err("ERROR: GL shader index %i did not link\n", shader_program);
+		glLog::print_program_info_log(shader_program);
+	}
+
 }
 
 void Program::use()

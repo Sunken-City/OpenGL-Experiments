@@ -3,6 +3,7 @@
 #include <GLFW/glfw3.h> // Include GLFW, the Windowing Tool Kit we're using.
 
 #include "Shader.h"
+#include "glLog.h"
 
 class Program
 {

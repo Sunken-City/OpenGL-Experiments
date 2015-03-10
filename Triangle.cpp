@@ -26,11 +26,6 @@ Triangle::~Triangle()
 
 }
 
-void Triangle::init()
-{
-
-}
-
 void Triangle::draw()
 {
 	glBindVertexArray(vao);
