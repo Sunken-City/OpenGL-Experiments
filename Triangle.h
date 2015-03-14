@@ -6,7 +6,7 @@
 class Triangle : public virtual Geometry
 {
 public:
-	Triangle(GLfloat points[9]);
+	Triangle(glm::vec3 first, glm::vec3 second, glm::vec3 third);
 	~Triangle();
 	void draw();
 

@@ -1,13 +1,18 @@
 #include <GL/glew.h> // Include GLEW, which helps us map to drivers
 #include <GLFW/glfw3.h> // Include GLFW, the Windowing Tool Kit we're using.
+
+// Include GLM core features
+#include <glm/vec3.hpp>
+
 #include <stdio.h>
 #include <assert.h>
 
-#include "Vec3.h"
 #include "glLog.h"
 #include "Shader.h"
 #include "Program.h"
-#include "Triangle.h"
+#include "Cube.h"
+
+using namespace glm;
 
 int main()
 {
@@ -48,20 +53,18 @@ int main()
 	glEnable(GL_DEPTH_TEST); //Enable depth testing
 	glDepthFunc(GL_LESS); //Depth testing interprets a smaller value as "closer"
 
-	GLfloat br[] = {
-		0.5f, 0.5f, 0.0f,
-		0.5f, -0.5f, 0.0f,
-		-0.5f, -0.5f, 0.0f
+	vec3 vertices[] = {
+		vec3(0.5f, 0.5f, 0.5f),
+		vec3(-0.5f, 0.5f, 0.5f),
+		vec3(0.5f, -0.5f, 0.5f),
+		vec3(-0.5f, -0.5f, 0.5f),
+		vec3(0.5f, 0.5f, -0.5f),
+		vec3(-0.5f, 0.5f, -0.5f),
+		vec3(0.5f, -0.5f, -0.5f),
+		vec3(-0.5f, -0.5f, -0.5f)
 	};
 
-	GLfloat tl[] = {
-		0.5f, 0.5f, 0.0f,
-		-0.5f, 0.5f, 0.0f,
-		-0.5f, -0.5f, 0.0f
-	};
-
-	Triangle topLeft = Triangle(tl);
-	Triangle bottomRight = Triangle(br);
+	Cube cube = Cube(vertices);
 	
 	Shader vs = Shader("vertex_shader.vert", GL_VERTEX_SHADER);
 	Shader fs = Shader("fragment_shader.frag", GL_FRAGMENT_SHADER);
@@ -74,8 +77,7 @@ int main()
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glClearColor(0.6f, 0.6f, 0.8f, 1.0f);
 		shaderProgram.use();
-		topLeft.draw();
-		bottomRight.draw();
+		cube.draw();
 		//Update other events, such as input handling
 		glfwPollEvents();
 		//Display what we've drawn

@@ -1,8 +1,11 @@
 #include "Triangle.h"
 
 
-Triangle::Triangle(GLfloat points[9])
+Triangle::Triangle(glm::vec3 first, glm::vec3 second, glm::vec3 third)
 {
+	GLfloat points[] = { first.x,  first.y,  first.z,
+						second.x, second.y, second.z,
+						 third.x,  third.y,  third.z };
 	//Generate an empty buffer
 	glGenBuffers(1, &vbo);
 	//Set the above as our current buffer via "binding"
