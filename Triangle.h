@@ -11,6 +11,7 @@ public:
 	void draw();
 
 private:
-	GLuint vbo = 0;
+	GLuint points_vbo = 0;
+	GLuint colors_vbo = 0;
 	GLuint vao = 0;
 };

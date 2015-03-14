@@ -76,6 +76,7 @@ int main()
 		//Clear the drawing screen
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glClearColor(0.6f, 0.6f, 0.8f, 1.0f);
+		
 		shaderProgram.use();
 		cube.draw();
 		//Update other events, such as input handling
