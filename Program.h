@@ -10,6 +10,7 @@ class Program
 public:
 	Program(Shader vertexShader, Shader fragmentShader);
 	void use();
+	int getUniform(const char* name);
 
 private:
 	Shader vertex;

@@ -24,3 +24,12 @@ void Program::use()
 {
 	glUseProgram(shader_program);
 }
+
+int Program::getUniform(const char* name)
+{
+	int location = glGetUniformLocation(shader_program, name);
+	if (location == -1)
+		glLog::gl_log_err("ERROR: Uniform %s was not found\n", name);
+	else
+		return location;
+}

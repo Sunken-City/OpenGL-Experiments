@@ -71,14 +71,44 @@ int main()
 
 	Program shaderProgram = Program(vs, fs);
 
+	//Movement tutorial stuff
+	float matrix[] = {
+		1.0f, 0.0f, 0.0f, 0.0f,
+		0.0f, 1.0f, 0.0f, 0.0f,
+		0.0f, 0.0f, 1.0f, 0.0f,
+		0.5f, 0.0f, 0.0f, 1.0f,
+	};
+
+	int matrix_location = shaderProgram.getUniform("matrix");
+	shaderProgram.use();
+	glUniformMatrix4fv(matrix_location, 1, GL_FALSE, matrix);
+
+	float speed = 1.0f;
+	float last_position = 0.0f;
 	while (!glfwWindowShouldClose(window))
 	{
+		//Add a timer for animation
+		static double previous_seconds = glfwGetTime();
+		double current_seconds = glfwGetTime();
+		double elapsed_seconds = current_seconds - previous_seconds;
+		previous_seconds = current_seconds;
+
+		if (fabs(last_position) > 1.0f)
+		{
+			speed = -speed;
+		}
+		matrix[12] = elapsed_seconds * speed + last_position;
+		last_position = matrix[12];
+		shaderProgram.use();
+		glUniformMatrix4fv(matrix_location, 1, GL_FALSE, matrix);
+
 		//Clear the drawing screen
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glClearColor(0.6f, 0.6f, 0.8f, 1.0f);
-		
+
 		shaderProgram.use();
 		cube.draw();
+
 		//Update other events, such as input handling
 		glfwPollEvents();
 		//Display what we've drawn
