@@ -10,18 +10,18 @@ Cube::Cube(glm::vec3 vertices[8])
 
 	//Set up the cube faces.
 	indices.push_back(Index(0, 1, 2));
-	indices.push_back(Index(0, 3, 4));
-	indices.push_back(Index(0, 5, 6));
-	indices.push_back(Index(1, 6, 7));
-	indices.push_back(Index(7, 4, 3));
-	indices.push_back(Index(4, 7, 6));
+	indices.push_back(Index(0, 2, 6));
+	indices.push_back(Index(0, 4, 6));
+	indices.push_back(Index(1, 2, 3));
+	indices.push_back(Index(1, 7, 3));
+	indices.push_back(Index(1, 5, 7));
 
-	indices.push_back(Index(2, 3, 0));
-	indices.push_back(Index(4, 5, 0));
-	indices.push_back(Index(6, 1, 0));
-	indices.push_back(Index(7, 2, 1));
-	indices.push_back(Index(3, 2, 7));
-	indices.push_back(Index(6, 5, 4));
+	indices.push_back(Index(4, 5, 1));
+	indices.push_back(Index(4, 1, 0));
+	indices.push_back(Index(6, 2, 3));
+	indices.push_back(Index(6, 7, 3));
+	indices.push_back(Index(6, 5, 7));
+	indices.push_back(Index(6, 4, 7));
 
 	for (int i = 0; i < 12; i++)
 	{
