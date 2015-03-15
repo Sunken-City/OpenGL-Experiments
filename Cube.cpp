@@ -23,6 +23,7 @@ Cube::Cube(glm::vec3 vertices[8])
 	indices.push_back(Index(6, 5, 7));
 	indices.push_back(Index(6, 4, 7));
 
+	//Create triangles based on the indices we use.
 	for (int i = 0; i < 12; i++)
 	{
 		faces.push_back(Triangle(verts.at(indices.at(i).first), verts.at(indices.at(i).second), verts.at(indices.at(i).third)));
