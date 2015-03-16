@@ -1,11 +1,16 @@
 #include "Cube.h"
+#include "glLog.h"
 
-Cube::Cube(glm::vec3 vertices[8])
+Cube::Cube(GLfloat size)
 {
+	GLfloat adjustedSize = size / 2.0f;
 	//Add all of the vertices to the vector of verts.
 	for (int i = 0; i < 8; i++)
 	{
-		verts.push_back(vertices[i]);
+		verts.push_back(glm::vec3(((i & 0x01) == 0) ? adjustedSize : -adjustedSize, 
+								  ((i & 0x02) == 0) ? adjustedSize : -adjustedSize, 
+								  ((i & 0x04) == 0) ? adjustedSize : -adjustedSize));
+		glLog::gl_log_err("X: %f Y: %f Z: %f\n", verts.at(i).x, verts.at(i).y, verts.at(i).z);
 	}
 
 	//Set up the cube faces.
