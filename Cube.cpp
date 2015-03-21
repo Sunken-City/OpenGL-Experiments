@@ -10,6 +10,9 @@ Cube::Cube(GLfloat size)
 		verts.push_back(glm::vec3(((i & 0x01) == 0) ? adjustedSize : -adjustedSize, 
 								  ((i & 0x02) == 0) ? adjustedSize : -adjustedSize, 
 								  ((i & 0x04) == 0) ? adjustedSize : -adjustedSize));
+		prim_verts.push_back(verts.at(i).x);
+		prim_verts.push_back(verts.at(i).y);
+		prim_verts.push_back(verts.at(i).z);
 		glLog::gl_log_err("X: %f Y: %f Z: %f\n", verts.at(i).x, verts.at(i).y, verts.at(i).z);
 	}
 
@@ -27,12 +30,13 @@ Cube::Cube(GLfloat size)
 	indices.push_back(Index(6, 7, 3));
 	indices.push_back(Index(6, 5, 7));
 	indices.push_back(Index(6, 4, 7));
-
-	//Create triangles based on the indices we use.
 	for (int i = 0; i < 12; i++)
 	{
-		faces.push_back(Triangle(verts.at(indices.at(i).first), verts.at(indices.at(i).second), verts.at(indices.at(i).third)));
+		prim_indices.push_back(indices.at(i).first);
+		prim_indices.push_back(indices.at(i).second);
+		prim_indices.push_back(indices.at(i).third);
 	}
+	Geometry::init();
 }
 
 Cube::~Cube()
@@ -42,8 +46,5 @@ Cube::~Cube()
 
 void Cube::draw()
 {
-	for (int i = 0; i < 12; i++)
-	{
-		faces.at(i).draw();
-	}
+	Geometry::draw();
 }

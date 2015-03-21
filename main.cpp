@@ -55,18 +55,7 @@ int main()
 	glEnable(GL_DEPTH_TEST); //Enable depth testing
 	glDepthFunc(GL_LESS); //Depth testing interprets a smaller value as "closer"
 
-	vec3 vertices[] = {
-		vec3(0.5f, 0.5f, 0.5f),
-		vec3(-0.5f, 0.5f, 0.5f),
-		vec3(0.5f, -0.5f, 0.5f),
-		vec3(-0.5f, -0.5f, 0.5f),
-		vec3(0.5f, 0.5f, -0.5f),
-		vec3(-0.5f, 0.5f, -0.5f),
-		vec3(0.5f, -0.5f, -0.5f),
-		vec3(-0.5f, -0.5f, -0.5f)
-	};
-
-	Cube cube = Cube(2);
+	Cube cube = Cube(3);
 	
 	Shader vs = Shader("vertex_shader.vert", GL_VERTEX_SHADER);
 	Shader fs = Shader("fragment_shader.frag", GL_FRAGMENT_SHADER);

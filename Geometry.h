@@ -18,11 +18,15 @@ class Geometry
 public:
 	Geometry();
 	~Geometry();
-	//virtual void init() = 0;
+	virtual void init();
 	virtual void draw();
 
 	std::vector<glm::vec3> verts; //Vertecies of the object.
+	std::vector<GLfloat> prim_verts; //Vertecies of the object.
 	std::vector<Index> indices; //The index numbers that make up the faces of the object.
+	std::vector<GLuint> prim_indices;
 	GLuint vao = 0;
-	//std::vector<Triangle> faces; //The triangles that make up the faces of the cube.
+	GLuint points_vbo = 0;
+	GLuint colors_vbo = 0;
+	GLuint index_vbo = 0;
 };

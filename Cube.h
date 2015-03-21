@@ -10,8 +10,4 @@ public:
 	Cube(GLfloat size);
 	~Cube();
 	void draw();
-
-private:
-
-	std::vector<Triangle> faces; //The triangles that make up the faces of the cube.
 };
