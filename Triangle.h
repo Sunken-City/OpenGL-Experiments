@@ -1,17 +1,17 @@
 #pragma once
 
-#include "Geometry.h"
-#include "Vec3.h"
+#include <vector>
+#include <GL/glew.h> // Include GLEW, which helps us map to drivers
+#include <GLFW/glfw3.h> // Include GLFW, the Windowing Tool Kit we're using.
+#include <glm/glm.hpp>
 
-class Triangle : public virtual Geometry
+class Triangle
 {
 public:
 	Triangle(glm::vec3 first, glm::vec3 second, glm::vec3 third);
 	~Triangle();
-	void draw();
+
+	glm::vec3 norm;
 
 private:
-	GLuint points_vbo = 0;
-	GLuint colors_vbo = 0;
-	GLuint vao = 0;
 };
