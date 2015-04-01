@@ -1,19 +1,37 @@
 #include "Triangle.h"
 
-
-Triangle::Triangle(glm::vec3 first, glm::vec3 second, glm::vec3 third)
+Triangle::Triangle()
 {
-	GLfloat points[] = { first.x,  first.y,  first.z,
-						second.x, second.y, second.z,
-						 third.x,  third.y,  third.z };
-	//Calculate the normal for this face
-	glm::vec3 v0 = second - first;
-	glm::vec3 v1 = third - first;
+	//This class is made to test out the shader and the normals, so I haven't added a useful constructor yet.
+	verts.push_back(glm::vec3(0.0f, 1.0f, 0.0f));
+	prim_verts.push_back(0.0f);
+	prim_verts.push_back(1.0f);
+	prim_verts.push_back(0.0f);
 
-	norm = glm::normalize(glm::cross(v0, v1));
+	verts.push_back(glm::vec3(0.5f, -0.5f, 0.0f));
+	prim_verts.push_back(0.5f);
+	prim_verts.push_back(-0.5f);
+	prim_verts.push_back(0.0f);
+
+	verts.push_back(glm::vec3(-0.5f, -0.5f, 0.0f));
+	prim_verts.push_back(-0.5f);
+	prim_verts.push_back(-0.5f);
+	prim_verts.push_back(0.0f);
+	
+	indices.push_back(Index(0, 1, 2));
+	prim_indices.push_back(indices.at(0).first);
+	prim_indices.push_back(indices.at(0).second);
+	prim_indices.push_back(indices.at(0).third);
+
+	Geometry::init();
 }
 
 Triangle::~Triangle()
 {
 
+}
+
+void Triangle::draw()
+{
+	Geometry::draw();
 }

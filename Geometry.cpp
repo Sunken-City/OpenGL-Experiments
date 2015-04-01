@@ -75,7 +75,7 @@ void Geometry::createFaces()
 {
 	for (int i = 0; i < indices.size(); i++)
 	{
-		faces.push_back(new Triangle(verts.at(indices.at(i).first), verts.at(indices.at(i).second), verts.at(indices.at(i).third)));
+		faces.push_back(new Face(verts.at(indices.at(i).first), verts.at(indices.at(i).second), verts.at(indices.at(i).third)));
 	}
 }
 
@@ -87,12 +87,13 @@ void Geometry::createNormals()
 		GLfloat vertexNormal = 0.0f;
 		glm::vec3 normals;
 		//std::vector<Triangle*> connectedFaces;
-
+		
 		//Find the connected faces
 		for (int j = 0; j < indices.size(); j++)
 		{
 			if (indices.at(j).first == i || indices.at(j).second == i || indices.at(j).third == i)
 			{
+				glLog::gl_log_err("Vert %i is part of Face {%i, %i, %i}\n", i, indices.at(j).first, indices.at(j).second, indices.at(j).third);
 				//Add the face's normal to our collection of normals
 				normals += faces.at(j)->norm;
 			}
@@ -105,5 +106,6 @@ void Geometry::createNormals()
 		norms.push_back(normalizedNormals.x);
 		norms.push_back(normalizedNormals.y);
 		norms.push_back(normalizedNormals.z);
+		glLog::gl_log_err("Vert {%f, %f, %f} has Normal {%f, %f, %f}\n", verts.at(i).x, verts.at(i).y, verts.at(i).z, normalizedNormals.x, normalizedNormals.y, normalizedNormals.z);
 	}
 }

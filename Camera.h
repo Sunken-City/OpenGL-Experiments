@@ -6,14 +6,20 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtx/transform.hpp>
 
+#include "Program.h"
+
 class Camera
 {
 public:
-	Camera(int MVPLocation);
+	Camera(Program shader);
 	~Camera();
 
 	void updateMVP();
 	void move(GLFWwindow* window, double elapsedSeconds);
+	int getMVPLocation();
+	int getModelLocation();
+	int getViewLocation();
+	int getNormalLocation();
 
 private:
 	float speed = 1.0f; //1 unit per second
@@ -21,5 +27,8 @@ private:
 	glm::vec3 position = glm::vec3(0.0f, 0.0f, 10.0f);
 	float yaw = 0.0f; //Y rotation in degrees.
 	int MVPLocation;
+	int ModelLocation;
+	int ViewLocation;
+	int NormalLocation;
 
 };

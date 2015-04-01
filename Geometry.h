@@ -4,7 +4,8 @@
 #include <glm/vec3.hpp>
 #include <vector>
 
-#include "Triangle.h"
+#include "Face.h"
+#include "glLog.h"
 
 class Index
 {
@@ -27,7 +28,7 @@ public:
 	std::vector<GLfloat> prim_verts; //Vertecies of the object as primatives.
 	std::vector<Index> indices; //The index numbers that make up the faces of the object.
 	std::vector<GLuint> prim_indices; //The index numbers that make up the faces of the object as primatives.
-	std::vector<Triangle*> faces;
+	std::vector<Face*> faces;
 	std::vector<GLfloat> norms; //Normals of the object as primatives.
 	GLuint vao = 0;
 	GLuint points_vbo = 0;

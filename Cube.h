@@ -2,7 +2,7 @@
 #include <vector>
 
 #include "Geometry.h"
-#include "Triangle.h"
+#include "Face.h"
 
 class Cube : public virtual Geometry	
 {

@@ -1,8 +1,13 @@
 #include "Camera.h"
 
-Camera::Camera(int MVPLocation)
+Camera::Camera(Program shader)
 {
-	this->MVPLocation = MVPLocation;
+	//Create uniforms for the matrices
+	this->MVPLocation = shader.getUniform("MVP");
+	this->ModelLocation = shader.getUniform("Model");
+	this->ViewLocation = shader.getUniform("View");
+	//this->NormalLocation = shader.getUniform("Normal");
+	shader.use();
 	updateMVP();
 }
 
@@ -15,15 +20,21 @@ void Camera::updateMVP()
 	glm::mat4 Translation = glm::translate(glm::mat4(), -position);
 	glm::mat4 Rotation = glm::rotate(glm::mat4(), -yaw, glm::vec3(0.0f, 1.0f, 0.0f));
 	glm::mat4 View = Rotation * Translation;
+	glUniformMatrix4fv(ViewLocation, 1, GL_FALSE, &View[0][0]);
 
 	// Projection matrix : 45° Field of View, 4:3 ratio, display range : 0.1 unit <-> 100 units
 	glm::mat4 Projection = glm::perspective(45.0f, 4.0f / 3.0f, 0.1f, 100.0f);
 
 	// Model matrix : an identity matrix (model will be at the origin)
 	glm::mat4 Model = glm::mat4(1.0f);  // Changes for each model !
+	glUniformMatrix4fv(ModelLocation, 1, GL_FALSE, &Model[0][0]);
+
+	//Make normal matrix so we can calculate lighting
+	//glm::mat3 Normal = glm::transpose(glm::inverse(glm::mat3(Model * View)));
+	//glUniformMatrix4fv(NormalLocation, 1, GL_FALSE, &Normal[0][0]);
+
 	// Our ModelViewProjection : multiplication of our 3 matrices
 	glm::mat4 MVP = Projection * View * Model; // Remember, matrix multiplication is the other way around
-
 	glUniformMatrix4fv(MVPLocation, 1, GL_FALSE, &MVP[0][0]);
 }
 
@@ -87,4 +98,25 @@ void Camera::move(GLFWwindow* window, double elapsedSeconds)
 	{
 		updateMVP();
 	}
+}
+
+
+int Camera::getMVPLocation()
+{
+	return MVPLocation;
+}
+
+int Camera::getModelLocation()
+{
+	return ModelLocation;
+}
+
+int Camera::getViewLocation()
+{
+	return ViewLocation;
+}
+
+int Camera::getNormalLocation()
+{
+	return NormalLocation;
 }

@@ -13,6 +13,7 @@
 #include "Shader.h"
 #include "Program.h"
 #include "Cube.h"
+#include "Triangle.h"
 #include "Camera.h"
 
 using namespace glm;
@@ -56,17 +57,16 @@ int main()
 	glEnable(GL_DEPTH_TEST); //Enable depth testing
 	glDepthFunc(GL_LESS); //Depth testing interprets a smaller value as "closer"
 
-	Cube cube = Cube(3);
+	//Cube cube = Cube(3);
 	
+	Triangle tri = Triangle();
+
 	Shader vs = Shader("vertex_shader.vert", GL_VERTEX_SHADER);
 	Shader fs = Shader("fragment_shader.frag", GL_FRAGMENT_SHADER);
 
 	Program shaderProgram = Program(vs, fs);
 
-	//Create a uniform for the MVP and pass its location to the camera.
-	int MVPLocation = shaderProgram.getUniform("MVP");
-	shaderProgram.use();
-	Camera camera = Camera(MVPLocation);
+	Camera camera = Camera(shaderProgram);
 
 	while (!glfwWindowShouldClose(window))
 	{
@@ -84,7 +84,7 @@ int main()
 		glClearColor(0.6f, 0.6f, 0.8f, 1.0f);
 
 		shaderProgram.use();
-		cube.draw();
+		tri.draw();
 
 		//Update other events, such as input handling
 		glfwPollEvents();

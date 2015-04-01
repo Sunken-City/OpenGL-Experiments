@@ -13,7 +13,6 @@ Cube::Cube(GLfloat size)
 		prim_verts.push_back(verts.at(i).x);
 		prim_verts.push_back(verts.at(i).y);
 		prim_verts.push_back(verts.at(i).z);
-		glLog::gl_log_err("X: %f Y: %f Z: %f\n", verts.at(i).x, verts.at(i).y, verts.at(i).z);
 	}
 
 	//Set up the cube faces.
