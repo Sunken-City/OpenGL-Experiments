@@ -14,7 +14,7 @@ vec3 La = vec3(0.2, 0.2, 0.2); //Grey ambient color
 vec3 Ks = vec3(1.0, 1.0, 1.0); //Fully reflect specular
 vec3 Kd = vec3(1.0, 0.5, 0.0); //Orange diffuse surface reflectance 
 vec3 Ka = vec3(1.0, 1.0, 1.0); //Fully reflect ambient
-float specular_exponent = 100.0; //Specular power
+float specularExponent = 100.0; //Specular power
 
 uniform mat4 MVP;
 uniform mat4 Model;
@@ -25,10 +25,18 @@ out vec3 color, normal, lightIntensity;
 void main () {
   normal = vec3(MVP * vec4(vertex_normal, 0.0));
   vec4 eyeCoords = Model * View * vec4(vertex_position, 1.0);
+  
   vec3 s = normalize(vec3(lightPosition - eyeCoords));
+  vec3 v = normalize(-eyeCoords.xyz);
+  vec3 r = reflect(-s, normal);
+  vec3 ambient = La * Ka;
+  float sDotN = max(dot(s, normal), 0.0);
+  vec3 diffuse = Ld * Kd * sDotN;
+  vec3 spec = vec3(0.0);
+  if(sDotN > 0.0)
+	spec = Ls * Ks * pow(max(dot(r,v), 0.0), specularExponent);
 
-  lightIntensity = Ld * Kd * max(dot(s, normal), 0.0);
-
+  lightIntensity = ambient + diffuse + spec;
   color = vertex_color;
   gl_Position = MVP * vec4 (vertex_position, 1.0);
 }
