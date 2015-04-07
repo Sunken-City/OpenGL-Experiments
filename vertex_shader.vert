@@ -5,7 +5,7 @@ layout(location = 2) in vec3 vertex_normal;
 
 
 //Fixed point light properties
-vec4 lightPosition = vec4(0.0, 0.0, 5.0, 0.0);
+vec4 lightPosition = vec4(0.0, 0.0, 7.0, 0.0);
 vec3 Ls = vec3(1.0, 1.0, 1.0); //White specular light color
 vec3 Ld = vec3(0.7, 0.7, 0.7); //Dull white diffuse light color
 vec3 La = vec3(0.2, 0.2, 0.2); //Grey ambient color

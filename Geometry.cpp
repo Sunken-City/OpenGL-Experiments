@@ -95,12 +95,22 @@ void Geometry::createNormals()
 			{
 				glLog::gl_log_err("Vert %i is part of Face {%i, %i, %i}\n", i, indices.at(j).first, indices.at(j).second, indices.at(j).third);
 				//Add the face's normal to our collection of normals
+				glLog::gl_log_err("Face {%i, %i, %i} has Normal {%f, %f, %f}\n", indices.at(j).first, indices.at(j).second, indices.at(j).third, faces.at(j)->norm.x, faces.at(j)->norm.y, faces.at(j)->norm.z);
+				
 				normals += faces.at(j)->norm;
 			}
 		}
 
+		glLog::gl_log_err("Normal before Normalizing {%f, %f, %f}\n", normals.x, normals.y, normals.z);
+
 		//Create our vetex normal
-		glm::vec3 normalizedNormals = glm::normalize(normals);
+		glm::vec3 normalizedNormals;
+		if (normals != glm::vec3(0.0f, 0.0f, 0.0f))
+		{
+			normalizedNormals = glm::normalize(normals);
+		}
+		else
+			normalizedNormals = normals;
 		
 		//Store our vertex normal.
 		norms.push_back(normalizedNormals.x);

@@ -28,7 +28,7 @@ Cube::Cube(GLfloat size)
 	indices.push_back(Index(6, 2, 3));
 	indices.push_back(Index(6, 7, 3));
 	indices.push_back(Index(6, 5, 7));
-	indices.push_back(Index(6, 4, 7));
+	indices.push_back(Index(6, 4, 5));
 	for (int i = 0; i < 12; i++)
 	{
 		prim_indices.push_back(indices.at(i).first);
