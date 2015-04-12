@@ -57,9 +57,9 @@ int main()
 	glEnable(GL_DEPTH_TEST); //Enable depth testing
 	glDepthFunc(GL_LESS); //Depth testing interprets a smaller value as "closer"
 
-	//Cube cube = Cube(3);
+	Cube cube = Cube(3);
 	
-	Triangle tri = Triangle();
+	//Triangle tri = Triangle();
 
 	Shader vs = Shader("vertex_shader.vert", GL_VERTEX_SHADER);
 	Shader fs = Shader("fragment_shader.frag", GL_FRAGMENT_SHADER);
@@ -84,7 +84,7 @@ int main()
 		glClearColor(0.6f, 0.6f, 0.8f, 1.0f);
 
 		shaderProgram.use();
-		tri.draw();
+		cube.draw();
 
 		//Update other events, such as input handling
 		glfwPollEvents();

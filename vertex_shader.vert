@@ -14,7 +14,7 @@ vec3 La = vec3(0.2, 0.2, 0.2); //Grey ambient color
 vec3 Ks = vec3(1.0, 1.0, 1.0); //Fully reflect specular
 vec3 Kd = vec3(1.0, 0.5, 0.0); //Orange diffuse surface reflectance 
 vec3 Ka = vec3(1.0, 1.0, 1.0); //Fully reflect ambient
-float specularExponent = 100.0; //Specular power
+float specularExponent = 50.0; //Specular power
 
 uniform mat4 MVP;
 uniform mat4 Model;

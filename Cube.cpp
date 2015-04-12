@@ -16,19 +16,24 @@ Cube::Cube(GLfloat size)
 	}
 
 	//Set up the cube faces.
-	indices.push_back(Index(0, 1, 2));
-	indices.push_back(Index(0, 2, 6));
-	indices.push_back(Index(0, 4, 6));
+	indices.push_back(Index(0, 2, 1));
 	indices.push_back(Index(1, 2, 3));
-	indices.push_back(Index(1, 7, 3));
-	indices.push_back(Index(1, 5, 7));
 
-	indices.push_back(Index(4, 5, 1));
-	indices.push_back(Index(4, 1, 0));
-	indices.push_back(Index(6, 2, 3));
-	indices.push_back(Index(6, 7, 3));
-	indices.push_back(Index(6, 5, 7));
-	indices.push_back(Index(6, 4, 5));
+	indices.push_back(Index(0, 6, 2));
+	indices.push_back(Index(0, 4, 6));
+
+	indices.push_back(Index(4, 5, 0));
+	indices.push_back(Index(5, 1, 0));
+
+	indices.push_back(Index(4, 5, 6));
+	indices.push_back(Index(5, 7, 6));
+
+	indices.push_back(Index(5, 3, 7));
+	indices.push_back(Index(1, 3, 5));
+
+	indices.push_back(Index(6, 2, 7));
+	indices.push_back(Index(7, 2, 3));
+
 	for (int i = 0; i < 12; i++)
 	{
 		prim_indices.push_back(indices.at(i).first);
