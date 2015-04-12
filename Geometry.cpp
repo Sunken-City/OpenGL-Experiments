@@ -116,6 +116,6 @@ void Geometry::createNormals()
 		norms.push_back(normalizedNormals.x);
 		norms.push_back(normalizedNormals.y);
 		norms.push_back(normalizedNormals.z);
-		glLog::gl_log_err("Vert {%f, %f, %f} has Normal {%f, %f, %f}\n", verts.at(i).x, verts.at(i).y, verts.at(i).z, normalizedNormals.x, normalizedNormals.y, normalizedNormals.z);
+		glLog::gl_log_err("Vert {%f, %f, %f} has Normal {%f, %f, %f}\n\n", verts.at(i).x, verts.at(i).y, verts.at(i).z, normalizedNormals.x, normalizedNormals.y, normalizedNormals.z);
 	}
 }
