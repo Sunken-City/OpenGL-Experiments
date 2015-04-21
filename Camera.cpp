@@ -18,7 +18,9 @@ Camera::~Camera()
 void Camera::updateMVP()
 {
 	glm::mat4 Translation = glm::translate(glm::mat4(), -position);
-	glm::mat4 Rotation = glm::rotate(glm::mat4(), -yaw, glm::vec3(0.0f, 1.0f, 0.0f));
+	glm::mat4 Rotation = glm::rotate(glm::mat4(), -pitch, glm::vec3(1.0f, 0.0f, 0.0f));
+	Rotation = glm::rotate(Rotation, -yaw, glm::vec3(0.0f, 1.0f, 0.0f));
+	Rotation = glm::rotate(Rotation, -roll, glm::vec3(0.0f, 0.0f, 1.0f));
 	glm::mat4 View = Rotation * Translation;
 	glUniformMatrix4fv(ViewLocation, 1, GL_FALSE, &View[0][0]);
 
@@ -47,21 +49,21 @@ void Camera::move(GLFWwindow* window, double elapsedSeconds)
 	if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT))
 	{
 		speed = 2.0f;
-		yawSpeed = 10.0f;
+		rotationSpeed = 5.0f;
 	}
 	else
 	{
 		speed = 1.0f;
-		yawSpeed = 5.0f;
-	}
-	if (glfwGetKey(window, GLFW_KEY_A))
-	{
-		position.x -= speed * elapsedSeconds;
-		camMoved = true;
+		rotationSpeed = 2.5f;
 	}
 	if (glfwGetKey(window, GLFW_KEY_D))
 	{
-		position.x += speed * elapsedSeconds;
+		yaw += rotationSpeed * elapsedSeconds;
+		camMoved = true;
+	}
+	if (glfwGetKey(window, GLFW_KEY_A))
+	{
+		yaw -= rotationSpeed * elapsedSeconds;
 		camMoved = true;
 	}
 	if (glfwGetKey(window, GLFW_KEY_SPACE))
@@ -76,22 +78,22 @@ void Camera::move(GLFWwindow* window, double elapsedSeconds)
 	}
 	if (glfwGetKey(window, GLFW_KEY_W))
 	{
-		position.z -= speed * elapsedSeconds;
+		pitch += rotationSpeed * elapsedSeconds;
 		camMoved = true;
 	}
 	if (glfwGetKey(window, GLFW_KEY_S))
 	{
-		position.z += speed * elapsedSeconds;
-		camMoved = true;
-	}
-	if (glfwGetKey(window, GLFW_KEY_Q))
-	{
-		yaw += yawSpeed * elapsedSeconds;
+		pitch -= rotationSpeed * elapsedSeconds;
 		camMoved = true;
 	}
 	if (glfwGetKey(window, GLFW_KEY_E))
 	{
-		yaw -= yawSpeed * elapsedSeconds;
+		roll += rotationSpeed * elapsedSeconds;
+		camMoved = true;
+	}
+	if (glfwGetKey(window, GLFW_KEY_Q))
+	{
+		roll -= rotationSpeed * elapsedSeconds;
 		camMoved = true;
 	}
 	if (camMoved)

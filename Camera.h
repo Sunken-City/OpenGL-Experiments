@@ -23,9 +23,11 @@ public:
 
 private:
 	float speed = 1.0f; //1 unit per second
-	float yawSpeed = 2.5f; //2.5 degrees per second
+	float rotationSpeed = 2.5f; //2.5 degrees per second
 	glm::vec3 position = glm::vec3(0.0f, 0.0f, 10.0f);
+	float pitch = 0.0f; //X rotation in degrees.
 	float yaw = 0.0f; //Y rotation in degrees.
+	float roll = 0.0f; //Z rotation in degrees.
 	int MVPLocation;
 	int ModelLocation;
 	int ViewLocation;
