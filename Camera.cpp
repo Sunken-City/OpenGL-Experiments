@@ -18,9 +18,7 @@ Camera::~Camera()
 void Camera::updateMVP()
 {
 	glm::mat4 Translation = glm::translate(glm::mat4(), -position);
-	glm::mat4 Rotation = glm::rotate(glm::mat4(), -pitch, glm::vec3(1.0f, 0.0f, 0.0f));
-	Rotation = glm::rotate(Rotation, -yaw, glm::vec3(0.0f, 1.0f, 0.0f));
-	Rotation = glm::rotate(Rotation, -roll, glm::vec3(0.0f, 0.0f, 1.0f));
+	glm::mat4 Rotation = glm::mat4();
 	glm::mat4 View = Rotation * Translation;
 	glUniformMatrix4fv(ViewLocation, 1, GL_FALSE, &View[0][0]);
 
@@ -28,7 +26,9 @@ void Camera::updateMVP()
 	glm::mat4 Projection = glm::perspective(45.0f, 4.0f / 3.0f, 0.1f, 100.0f);
 
 	// Model matrix : an identity matrix (model will be at the origin)
-	glm::mat4 Model = glm::mat4(1.0f);  // Changes for each model !
+	glm::mat4 Model = glm::rotate(glm::mat4(1.0f), -pitch, glm::vec3(1.0f, 0.0f, 0.0f));
+	Model = glm::rotate(Model, -yaw, glm::vec3(0.0f, 1.0f, 0.0f));
+	Model = glm::rotate(Model, -roll, glm::vec3(0.0f, 0.0f, 1.0f));
 	glUniformMatrix4fv(ModelLocation, 1, GL_FALSE, &Model[0][0]);
 
 	//Make normal matrix so we can calculate lighting
