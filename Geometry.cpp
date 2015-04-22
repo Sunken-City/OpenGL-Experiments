@@ -17,6 +17,8 @@ void Geometry::init()
 		0.0f, 0.0f, 1.0f
 	};
 
+	initPrims();
+
 	createFaces();
 	createNormals();
 
@@ -118,4 +120,21 @@ void Geometry::createNormals()
 		norms.push_back(normalizedNormals.z);
 		glLog::gl_log_err("Vert {%f, %f, %f} has Normal {%f, %f, %f}\n\n", verts.at(i).x, verts.at(i).y, verts.at(i).z, normalizedNormals.x, normalizedNormals.y, normalizedNormals.z);
 	}
+}
+
+void Geometry::initPrims()
+{
+	for (int i = 0; i < verts.size(); i++)
+	{
+		prim_verts.push_back(verts.at(i).x);
+		prim_verts.push_back(verts.at(i).y);
+		prim_verts.push_back(verts.at(i).z);
+	}
+	for (int i = 0; i < indices.size(); i++)
+	{
+		prim_indices.push_back(indices.at(i).first);
+		prim_indices.push_back(indices.at(i).second);
+		prim_indices.push_back(indices.at(i).third);
+	}
+
 }

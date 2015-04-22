@@ -14,6 +14,7 @@
 #include "Program.h"
 #include "Cube.h"
 #include "Triangle.h"
+#include "Sphere.h"
 #include "Camera.h"
 
 using namespace glm;
@@ -57,8 +58,8 @@ int main()
 	glEnable(GL_DEPTH_TEST); //Enable depth testing
 	glDepthFunc(GL_LESS); //Depth testing interprets a smaller value as "closer"
 
-	Cube cube = Cube(3);
-	
+	//Cube cube = Cube(3);
+	Sphere cube = Sphere(1, 7);
 	//Triangle tri = Triangle();
 
 	Shader vs = Shader("vertex_shader.vert", GL_VERTEX_SHADER);
