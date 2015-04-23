@@ -5,25 +5,35 @@
 Sphere::Sphere(GLfloat size, int iterations)
 {
 	//Generate points to use for the sphere algorithm
-	glm::vec3 p1 = {  size,  size,  size };
-	glm::vec3 p2 = { -size, -size,  size };
-	glm::vec3 p3 = {  size, -size, -size };
-	glm::vec3 p4 = { -size,  size, -size };
+	glm::vec3 p1 = { 0, 0, size };
+	glm::vec3 p2 = { 0, 0, -size };
+	glm::vec3 p3 = { -size, -size, 0 };
+	glm::vec3 p4 = { size, -size, 0 };
+	glm::vec3 p5 = { size, size, 0 };
+	glm::vec3 p6 = { -size,  size, 0 };
 
 	p1 = glm::normalize(p1);
 	p2 = glm::normalize(p2);
 	p3 = glm::normalize(p3);
 	p4 = glm::normalize(p4);
+	p5 = glm::normalize(p5);
+	p6 = glm::normalize(p6);
 
 	verts.push_back(p1);
 	verts.push_back(p2);
 	verts.push_back(p3);
 	verts.push_back(p4);
+	verts.push_back(p5);
+	verts.push_back(p6);
 
-	indices.push_back(Index(0, 1, 2));
-	indices.push_back(Index(1, 0, 3));
+	indices.push_back(Index(0, 3, 4));
+	indices.push_back(Index(0, 4, 5));
+	indices.push_back(Index(0, 5, 2));
+	indices.push_back(Index(0, 2, 3)); 
+	indices.push_back(Index(1, 4, 3));
+	indices.push_back(Index(1, 5, 4));
+	indices.push_back(Index(1, 2, 5));
 	indices.push_back(Index(1, 3, 2));
-	indices.push_back(Index(0, 2, 3));
 
 	/*
 	std::vector <Face> faces;
