@@ -1,5 +1,5 @@
 #version 410
-in vec3 color, normal;
+in vec3 normal;
 in vec4 eyeCoords;
 out vec4 frag_color;
 

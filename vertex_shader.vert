@@ -11,8 +11,8 @@ out vec3 color, normal;
 out vec4 eyeCoords;
 
 void main () {
-  normal = vec3(Model * View * vec4(vertex_normal, 0.0));
-  eyeCoords = Model * View * vec4(vertex_position, 1.0);
+  normal = vec3(View * Model * vec4(vertex_normal, 0.0));
+  eyeCoords = View * Model * vec4(vertex_position, 1.0);
   
   color = vertex_color;
   gl_Position = MVP * vec4 (vertex_position, 1.0);
