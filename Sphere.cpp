@@ -35,6 +35,36 @@ Sphere::Sphere(GLfloat size, int iterations)
 	indices.push_back(Index(1, 2, 5));
 	indices.push_back(Index(1, 3, 2));
 
+	for (int i = 0; i < iterations; i++)
+	{
+		int n = indices.size();
+		for (int j = 0; j < n; j++)
+		{
+			// Calculate the midpoints 
+			glm::vec3 point1 = midpoint(verts.at(indices.at(j).first), verts.at(indices.at(j).second));
+			glm::vec3 point2 = midpoint(verts.at(indices.at(j).second), verts.at(indices.at(j).third));
+			glm::vec3 point3 = midpoint(verts.at(indices.at(j).third), verts.at(indices.at(j).first));
+
+			point1 = glm::normalize(point1);
+			point2 = glm::normalize(point2);
+			point3 = glm::normalize(point3);
+
+			int point1Location = verts.size();
+			verts.push_back(point1);
+			int point2Location = verts.size();
+			verts.push_back(point2);
+			int point3Location = verts.size();
+			verts.push_back(point3);
+
+			indices.push_back(Index(indices.at(j).first, point1Location, point3Location));
+			indices.push_back(Index(point1Location, indices.at(j).second, point2Location));
+			indices.push_back(Index(point3Location, point2Location, indices.at(j).third));
+
+			indices.at(j).first = point1Location;
+			indices.at(j).second = point2Location;
+			indices.at(j).third = point3Location;
+		}
+	}
 	/*
 	std::vector <Face> faces;
 	faces.push_back(Face(p1, p2, p3));
@@ -126,7 +156,7 @@ Sphere::~Sphere()
 
 }
 
-glm::vec3 midpoint(glm::vec3 first, glm::vec3 second)
+glm::vec3 Sphere::midpoint(glm::vec3 first, glm::vec3 second)
 {
 	glm::vec3 p;
 	p.x = (first.x + second.x) / 2;

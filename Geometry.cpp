@@ -69,7 +69,7 @@ void Geometry::init()
 void Geometry::draw()
 {
 	glBindVertexArray(vao);
-	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, NULL);
+	glDrawElements(GL_TRIANGLES, 3 * indices.size(), GL_UNSIGNED_INT, NULL);
 	glBindVertexArray(0);
 }
 
@@ -95,15 +95,15 @@ void Geometry::createNormals()
 		{
 			if (indices.at(j).first == i || indices.at(j).second == i || indices.at(j).third == i)
 			{
-				glLog::gl_log_err("Vert %i is part of Face {%i, %i, %i}\n", i, indices.at(j).first, indices.at(j).second, indices.at(j).third);
+				//glLog::gl_log_err("Vert %i is part of Face {%i, %i, %i}\n", i, indices.at(j).first, indices.at(j).second, indices.at(j).third);
 				//Add the face's normal to our collection of normals
-				glLog::gl_log_err("Face {%i, %i, %i} has Normal {%f, %f, %f}\n", indices.at(j).first, indices.at(j).second, indices.at(j).third, faces.at(j)->norm.x, faces.at(j)->norm.y, faces.at(j)->norm.z);
+				//glLog::gl_log_err("Face {%i, %i, %i} has Normal {%f, %f, %f}\n", indices.at(j).first, indices.at(j).second, indices.at(j).third, faces.at(j)->norm.x, faces.at(j)->norm.y, faces.at(j)->norm.z);
 				
 				normals += faces.at(j)->norm;
 			}
 		}
 
-		glLog::gl_log_err("Normal before Normalizing {%f, %f, %f}\n", normals.x, normals.y, normals.z);
+		//glLog::gl_log_err("Normal before Normalizing {%f, %f, %f}\n", normals.x, normals.y, normals.z);
 
 		//Create our vetex normal
 		glm::vec3 normalizedNormals;
@@ -118,7 +118,7 @@ void Geometry::createNormals()
 		norms.push_back(normalizedNormals.x);
 		norms.push_back(normalizedNormals.y);
 		norms.push_back(normalizedNormals.z);
-		glLog::gl_log_err("Vert {%f, %f, %f} has Normal {%f, %f, %f}\n\n", verts.at(i).x, verts.at(i).y, verts.at(i).z, normalizedNormals.x, normalizedNormals.y, normalizedNormals.z);
+		//glLog::gl_log_err("Vert {%f, %f, %f} has Normal {%f, %f, %f}\n\n", verts.at(i).x, verts.at(i).y, verts.at(i).z, normalizedNormals.x, normalizedNormals.y, normalizedNormals.z);
 	}
 }
 
