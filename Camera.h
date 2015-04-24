@@ -16,7 +16,7 @@ public:
 
 	void updateMVP();
 	void move(GLFWwindow* window, double elapsedSeconds);
-	int getMVPLocation();
+	int getProjectionLocation();
 	int getModelLocation();
 	int getViewLocation();
 	int getNormalLocation();
@@ -28,7 +28,7 @@ private:
 	float pitch = 0.0f; //X rotation in degrees.
 	float yaw = 0.0f; //Y rotation in degrees.
 	float roll = 0.0f; //Z rotation in degrees.
-	int MVPLocation;
+	int ProjectionLocation;
 	int ModelLocation;
 	int ViewLocation;
 	int NormalLocation;

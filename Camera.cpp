@@ -3,7 +3,7 @@
 Camera::Camera(Program shader)
 {
 	//Create uniforms for the matrices
-	this->MVPLocation = shader.getUniform("MVP");
+	this->ProjectionLocation = shader.getUniform("Projection");
 	this->ModelLocation = shader.getUniform("Model");
 	this->ViewLocation = shader.getUniform("View");
 	//this->NormalLocation = shader.getUniform("Normal");
@@ -24,6 +24,7 @@ void Camera::updateMVP()
 
 	// Projection matrix : 45° Field of View, 4:3 ratio, display range : 0.1 unit <-> 100 units
 	glm::mat4 Projection = glm::perspective(45.0f, 4.0f / 3.0f, 0.1f, 100.0f);
+	glUniformMatrix4fv(ProjectionLocation, 1, GL_FALSE, &Projection[0][0]);
 
 	// Model matrix : an identity matrix (model will be at the origin)
 	glm::mat4 Model = glm::rotate(glm::mat4(1.0f), -pitch, glm::vec3(1.0f, 0.0f, 0.0f));
@@ -37,7 +38,6 @@ void Camera::updateMVP()
 
 	// Our ModelViewProjection : multiplication of our 3 matrices
 	glm::mat4 MVP = Projection * View * Model; // Remember, matrix multiplication is the other way around
-	glUniformMatrix4fv(MVPLocation, 1, GL_FALSE, &MVP[0][0]);
 }
 
 void Camera::move(GLFWwindow* window, double elapsedSeconds)
@@ -103,9 +103,9 @@ void Camera::move(GLFWwindow* window, double elapsedSeconds)
 }
 
 
-int Camera::getMVPLocation()
+int Camera::getProjectionLocation()
 {
-	return MVPLocation;
+	return ProjectionLocation;
 }
 
 int Camera::getModelLocation()

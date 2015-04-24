@@ -47,7 +47,7 @@ void Geometry::init()
 	//Generate the indices and send them to the graphics card
 	glGenBuffers(1, &index_vbo);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, index_vbo);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, static_cast<int>(prim_indices.size()) * sizeof(prim_indices.at(0)), prim_indices.data(), GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(prim_indices.at(0)) * static_cast<int>(prim_indices.size()), prim_indices.data(), GL_STATIC_DRAW);
 
 	//Enable the first attribute, 0, which is our Points buffer
 	glEnableVertexAttribArray(0);
@@ -83,12 +83,12 @@ void Geometry::createFaces()
 
 void Geometry::createNormals()
 {
+	int normalCount = 0;
 	//Get a normal for each vertex
 	for (int i = 0; i < verts.size(); i++)
 	{
 		GLfloat vertexNormal = 0.0f;
 		glm::vec3 normals;
-		//std::vector<Triangle*> connectedFaces;
 		
 		//Find the connected faces
 		for (int j = 0; j < indices.size(); j++)
@@ -100,20 +100,20 @@ void Geometry::createNormals()
 				//glLog::gl_log_err("Face {%i, %i, %i} has Normal {%f, %f, %f}\n", indices.at(j).first, indices.at(j).second, indices.at(j).third, faces.at(j)->norm.x, faces.at(j)->norm.y, faces.at(j)->norm.z);
 				
 				normals += faces.at(j)->norm;
+				normalCount++;
 			}
 		}
 
 		//glLog::gl_log_err("Normal before Normalizing {%f, %f, %f}\n", normals.x, normals.y, normals.z);
 
+		//Average Normals
+		//normals = normals * (1.0f / normalCount);
+
 		//Create our vetex normal
-		glm::vec3 normalizedNormals;
+		glm::vec3 normalizedNormals = normals;
 		if (normals != glm::vec3(0.0f, 0.0f, 0.0f))
-		{
 			normalizedNormals = glm::normalize(normals);
-		}
-		else
-			normalizedNormals = normals;
-		
+
 		//Store our vertex normal.
 		norms.push_back(normalizedNormals.x);
 		norms.push_back(normalizedNormals.y);
