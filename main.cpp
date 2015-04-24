@@ -59,7 +59,7 @@ int main()
 	glDepthFunc(GL_LESS); //Depth testing interprets a smaller value as "closer"
 
 	//Cube cube = Cube(3);
-	Sphere cube = Sphere(1, 2);
+	Sphere cube = Sphere(1, 4);
 	//Triangle tri = Triangle();
 
 	Shader vs = Shader("vertex_shader.vert", GL_VERTEX_SHADER);
