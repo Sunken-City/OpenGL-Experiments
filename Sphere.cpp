@@ -51,13 +51,37 @@ Sphere::Sphere(GLfloat size, int iterations)
 			point3 = glm::normalize(point3);
 
 			//Add these vertices to the list of verts, and store their array location.
-			//Note that this doesn't account for duplicates
-			int point1Location = verts.size();
-			verts.push_back(point1);
-			int point2Location = verts.size();
-			verts.push_back(point2);
-			int point3Location = verts.size();
-			verts.push_back(point3);
+			//Naiive way to check for dupes is here. I'll find a better solution later.
+			int point1Location = -1;
+			int point2Location = -1;
+			int point3Location = -1;
+			for (int z = 0; z < verts.size(); z++)
+			{
+				glm::vec3 compare = verts.at(z);
+				if (compare == point1)
+					point1Location = z;
+				if (compare == point2)
+					point2Location = z;
+				if (compare == point3)
+					point3Location = z;
+			}
+			if (point1Location == -1)
+			{
+				point1Location = verts.size();
+				verts.push_back(point1);
+			}
+
+			if (point2Location == -1)
+			{
+				point2Location = verts.size();
+				verts.push_back(point2);
+			}
+
+			if (point3Location == -1)
+			{
+				point3Location = verts.size();
+				verts.push_back(point3);
+			}
 
 			//Create 3 new faces (the outer triangles, the pieces of the triforce)
 			indices.push_back(Index(indices.at(j).first, point1Location, point3Location));
