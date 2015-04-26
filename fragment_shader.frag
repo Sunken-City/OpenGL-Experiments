@@ -20,19 +20,20 @@ float specularExponent = 100.0; //Specular power
 void main () 
 {
 	//Ambient Intensity
+	vec3 newNormal = normalize(normal);
 	vec3 Ia = La * Ka;
 
 	//Raise the light position to eye space
 	vec3 lightPosEye = vec3(View * vec4(lightPosition, 1.0));
 	vec3 distanceToLightEye = lightPosEye - eyePosition;
 	vec3 directionToLightEye = normalize(distanceToLightEye);
-	float dotProd = max(0.0, dot(directionToLightEye, normal));
+	float dotProd = max(0.0, dot(directionToLightEye, newNormal));
 
 	//Diffuse Intensity
 	vec3 Id = Ld * Kd * dotProd;
 
 	//Specular Intensity
-	vec3 reflectionEye = reflect (-directionToLightEye, normal);
+	vec3 reflectionEye = reflect (-directionToLightEye, newNormal);
 	vec3 surfaceToViewerEye = normalize (-eyePosition);
 	float dotProdSpecular = max(0.0, dot(reflectionEye, surfaceToViewerEye));
 	float specularFactor = pow(dotProdSpecular, specularExponent);
