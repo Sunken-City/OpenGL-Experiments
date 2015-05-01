@@ -10,9 +10,6 @@ Cube::Cube(GLfloat size)
 		verts.push_back(glm::vec3(((i & 0x01) == 0) ? adjustedSize : -adjustedSize, 
 								  ((i & 0x02) == 0) ? adjustedSize : -adjustedSize, 
 								  ((i & 0x04) == 0) ? adjustedSize : -adjustedSize));
-		prim_verts.push_back(verts.at(i).x);
-		prim_verts.push_back(verts.at(i).y);
-		prim_verts.push_back(verts.at(i).z);
 	}
 
 	//Set up the cube faces.
@@ -33,13 +30,6 @@ Cube::Cube(GLfloat size)
 
 	indices.push_back(Index(6, 2, 7));
 	indices.push_back(Index(7, 2, 3));
-
-	for (int i = 0; i < 12; i++)
-	{
-		prim_indices.push_back(indices.at(i).first);
-		prim_indices.push_back(indices.at(i).second);
-		prim_indices.push_back(indices.at(i).third);
-	}
 	Geometry::init();
 }
 

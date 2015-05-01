@@ -60,7 +60,7 @@ int main()
 
 	//Cube cube = Cube(3);
 	Sphere cube = Sphere(1, 4);
-	//Triangle tri = Triangle();
+	//Triangle cube = Triangle();
 
 	Shader vs = Shader("vertex_shader.vert", GL_VERTEX_SHADER);
 	Shader fs = Shader("fragment_shader.frag", GL_FRAGMENT_SHADER);
