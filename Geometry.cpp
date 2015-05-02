@@ -83,39 +83,29 @@ void Geometry::createNormals()
 			normalizedNormals = glm::normalize(normals);
 
 		//Store our vertex normal.
-		norms.push_back(normalizedNormals.x);
-		norms.push_back(normalizedNormals.y);
-		norms.push_back(normalizedNormals.z);
+		norms.push_back(normalizedNormals);
 	}
 }
 
 void Geometry::initPrims()
 {
-	for (int i = 0; i < verts.size(); i++)
-	{
-		prim_verts.push_back(verts.at(i).x);
-		prim_verts.push_back(verts.at(i).y);
-		prim_verts.push_back(verts.at(i).z);
-	}
 	for (int i = 0; i < indices.size(); i++)
 	{
 		prim_indices.push_back(indices.at(i).first);
 		prim_indices.push_back(indices.at(i).second);
 		prim_indices.push_back(indices.at(i).third);
 	}
-
 }
 
 void Geometry::initInterleaved()
 {
-	for (int i = 0; i < prim_verts.size(); i++)
+	for (int i = 0; i < verts.size(); i++)
 	{
-		int counter = i;
-		interleaved.push_back(prim_verts.at(counter++)); //x
-		interleaved.push_back(prim_verts.at(counter++)); //y
-		interleaved.push_back(prim_verts.at(counter)); //z
-		interleaved.push_back(norms.at(i++));
-		interleaved.push_back(norms.at(i++));
-		interleaved.push_back(norms.at(i));
+		interleaved.push_back(verts.at(i).x); 
+		interleaved.push_back(verts.at(i).y); 
+		interleaved.push_back(verts.at(i).z); 
+		interleaved.push_back(norms.at(i).x);
+		interleaved.push_back(norms.at(i).y);
+		interleaved.push_back(norms.at(i).z);
 	}
 }

@@ -5,6 +5,7 @@
 Sphere::Sphere(GLfloat size, int iterations)
 {
 	//Generate points to use for the sphere algorithm
+	//We need to start off with an octahedron to keep the faces even.
 	glm::vec3 p1 = { 0, 0, size };
 	glm::vec3 p2 = { 0, 0, -size };
 	glm::vec3 p3 = { -size, -size, 0 };
