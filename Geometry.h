@@ -39,9 +39,7 @@ public:
 	std::vector<GLfloat> interleaved;
 	GLuint vao = 0;
 	GLuint points_vbo = 0;
-	GLuint colors_vbo = 0;
 	GLuint index_vbo = 0;
-	GLuint normals_vbo = 0;
 
 private:
 	void initPrims();

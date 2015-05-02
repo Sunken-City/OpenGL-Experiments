@@ -11,14 +11,7 @@ Geometry::~Geometry()
 
 void Geometry::init()
 {
-	GLfloat colors[] = {
-		1.0f, 0.0f, 0.0f,
-		0.0f, 1.0f, 0.0f,
-		0.0f, 0.0f, 1.0f
-	};
-
 	initPrims();
-
 	createFaces();
 	createNormals();
 	initInterleaved();
@@ -35,26 +28,6 @@ void Geometry::init()
 	//Copy points into the currently bound buffer
 	glBufferData(GL_ARRAY_BUFFER, sizeof(interleaved.at(0)) * static_cast<int>(interleaved.size()), interleaved.data(), GL_STATIC_DRAW);
 
-	//Generate an empty buffer for the colors
-	glGenBuffers(1, &colors_vbo);
-	glBindBuffer(GL_ARRAY_BUFFER, colors_vbo);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(colors), colors, GL_STATIC_DRAW);
-
-	/*
-
-	//Generate an empty buffer for the points
-	glGenBuffers(1, &points_vbo);
-	//Set the above as our current buffer via "binding"
-	glBindBuffer(GL_ARRAY_BUFFER, points_vbo);
-	//Copy points into the currently bound buffer
-	glBufferData(GL_ARRAY_BUFFER, sizeof(prim_verts.at(0)) * static_cast<int>(prim_verts.size()), prim_verts.data(), GL_STATIC_DRAW);
-
-
-	//Generate an empty buffer for the colors
-	glGenBuffers(1, &normals_vbo);
-	glBindBuffer(GL_ARRAY_BUFFER, normals_vbo);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(norms.at(0)) * static_cast<int>(norms.size()), norms.data(), GL_STATIC_DRAW);
-	*/
 	//Generate the indices and send them to the graphics card
 	glGenBuffers(1, &index_vbo);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, index_vbo);
@@ -66,21 +39,8 @@ void Geometry::init()
 	//0 means to define the layout for attrib #0, 3 means that we're using vec3
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, STRIDE * sizeof(GLfloat), BUFFER_OFFSET(0));
 	//Enable Normals attribute, 2
-	glEnableVertexAttribArray(2);
-	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, STRIDE * sizeof(GLfloat), BUFFER_OFFSET(12));
-
-	//Enable the Colors attribute, 1
 	glEnableVertexAttribArray(1);
-	glBindBuffer(GL_ARRAY_BUFFER, colors_vbo);
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, NULL);
-
-
-
-	/*
-	//Enable the Normals attribute, 2
-	glBindBuffer(GL_ARRAY_BUFFER, normals_vbo);
-	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, NULL);
-	*/
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, STRIDE * sizeof(GLfloat), BUFFER_OFFSET(12));
 }
 
 void Geometry::draw()
