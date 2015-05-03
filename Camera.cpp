@@ -32,11 +32,7 @@ void Camera::updateMVP()
 	Model = glm::rotate(Model, -roll, glm::vec3(0.0f, 0.0f, 1.0f));
 	glUniformMatrix4fv(ModelLocation, 1, GL_FALSE, &Model[0][0]);
 
-	//Make normal matrix so we can calculate lighting
-	//glm::mat3 Normal = glm::transpose(glm::inverse(glm::mat3(Model * View)));
-	//glUniformMatrix4fv(NormalLocation, 1, GL_FALSE, &Normal[0][0]);
-
-	// Our ModelViewProjection : multiplication of our 3 matrices
+	//ModelViewProjection : multiplication of our 3 matrices
 	glm::mat4 MVP = Projection * View * Model; // Remember, matrix multiplication is the other way around
 }
 

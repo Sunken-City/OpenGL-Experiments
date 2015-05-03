@@ -58,15 +58,15 @@ int main()
 	glEnable(GL_DEPTH_TEST); //Enable depth testing
 	glDepthFunc(GL_LESS); //Depth testing interprets a smaller value as "closer"
 
-	//Cube cube = Cube(3);
-	Sphere cube = Sphere(1, 4);
-	//Triangle cube = Triangle();
+	//Generate a sphere as our model.
+	Sphere sphere = Sphere(1, 4);
 
+	//Load and compile our shaders, and make the shader program to pass to the camera.
 	Shader vs = Shader("vertex_shader.vert", GL_VERTEX_SHADER);
 	Shader fs = Shader("fragment_shader.frag", GL_FRAGMENT_SHADER);
-
 	Program shaderProgram = Program(vs, fs);
 
+	//Create the camera.
 	Camera camera = Camera(shaderProgram);
 
 	while (!glfwWindowShouldClose(window))
@@ -84,8 +84,9 @@ int main()
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glClearColor(0.6f, 0.6f, 0.8f, 1.0f);
 
+		//Draw the model
 		shaderProgram.use();
-		cube.draw();
+		sphere.draw();
 
 		//Update other events, such as input handling
 		glfwPollEvents();
